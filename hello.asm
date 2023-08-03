@@ -1,11 +1,17 @@
+section .data
+  msg: db "Hello, World!", 10
+  msglen: equ $ - msg
 
-org  0x100
+section .text
+  global _start
 
-mov  dx, msg
-mov  ah, 9
-int  0x21
+_start:
+  mov rax, 1
+  mov rdi, 1
+  mov rsi, msg
+  mov rdx, msglen
+  syscall
 
-mov  ah, 0x4c
-int  0x21
-
-msg  db 'Hello, World!', 0x0d, 0x0a, '$'
+  mov rax, 60
+  mov rdi, 0
+  syscall
